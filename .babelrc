@@ -1,0 +1,9 @@
+{
+	"presets": ["react", "stage-0", "es2015"],
+	"compact" : false,
+	"plugins": [
+		"transform-object-rest-spread",
+		"transform-class-properties",
+		"transform-decorators-legacy"
+	]
+}
