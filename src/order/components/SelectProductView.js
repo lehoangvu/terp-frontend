@@ -5,6 +5,7 @@ import { currency } from './../../helpers'
 import { Table, Tag } from 'antd'
 import { Checkbox } from 'antd'
 
+
 class SelectProductView extends React.Component {
 	constructor(props) {
 		super(props)
@@ -25,19 +26,19 @@ class SelectProductView extends React.Component {
 
 	render() {
 		const { products, onAddProduct, selected } = this.props
-		return <div style={{
-			margin: 'auto',
-			width: '500px'
-		}}>
-			<h3>{selected.length} SP được chọn, <span style={{color: '#f00'}}>{this.getTotalPrice()}</span></h3>
-			<span className="ant-divider" />
+		return <div>
+			<h2>Chọn sản phẩm</h2>
+			<h3>
+				<b style={{fontSize: '30px'}}>{selected.length}</b> SP được chọn, <b style={{color: '#f00', fontSize: '30px', float: 'right'}}>{this.getTotalPrice()}</b>
+			</h3>
+			<hr/>
 			<Table 
 			dataSource={products} 
 			pagination={false}
 			rowKey="id" 
 			showHeader={false} 
 			columns={ [
-				{ title: 'ID', dataIndex: 'id', key: 'id', width: '80px' },
+				{ title: 'ID', dataIndex: 'id', key: 'id', width: '90px' },
 				{ 
 					title: '',
 					key: 'image',

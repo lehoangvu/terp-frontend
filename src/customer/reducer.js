@@ -4,8 +4,7 @@ import { actionTypeCreator } from './../libraries'
 const _ = actionTypeCreator(c.MODULE_NAME);
 
 const intinalState = {
-    orders: [],
-    order: null
+    customers: []
 }
 
 export default (state = intinalState, action) => {

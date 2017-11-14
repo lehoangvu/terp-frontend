@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { Row, Col, Panel } from 'antd'
 
 import * as productActions from './../../product/action'
+import * as customerActions from './../../customer/action'
 
 import OrderGenerateView from './../components/OrderGenerateView'
 
@@ -27,7 +28,6 @@ class OrderCreate extends React.Component {
 const mapStateToProps = (state) => {
     return {
     	products: state.product.products,
-    	order: state.order.order
     }
 }
 

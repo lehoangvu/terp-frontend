@@ -1,17 +1,19 @@
 import React from 'react'
 import { currency } from './../../helpers'
 
-import { Steps, Icon } from 'antd'
-const Step = Steps.Step
+import { Row, Col } from 'antd'
 
 import SelectProductView from './SelectProductView'
+import SelectCustomer from './SelectCustomer'
 
 class OrderGenerateView extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			step: 0, //0, 1, 2, 3, 4
-			selected_products: []
+			selected_products: [],
+			customer: {
+				id: null
+			},
 		}
 	}
 
@@ -28,19 +30,27 @@ class OrderGenerateView extends React.Component {
 		})
 	}
 
+	changeCustomer(customer) {
+		this.setState({
+			customer
+		})
+	}
+
 	render() {
-		const { step, selected_products } = this.state
+		const { selected_products, customer } = this.state
 		const { products } = this.props
 		return <div>
-			<Steps>
-				<Step status={step == 1 ? 'finish' : 'process'} title="Chọn sản phẩm" icon={<Icon type="appstore-o" />} />
-				<Step status={step == 2 ? 'finish' : 'process'} title="Nhập khách hàng" icon={<Icon type="user" />} />
-				<Step status={step == 3 ? 'finish' : 'process'} title="Ghi chú đơn hàng" icon={<Icon type="file-text" />} />
-				<Step status={step == 4 ? 'finish' : 'process'} title="Hoàn thành" icon={<Icon type="check-circle-o" />} />
-			</Steps>
-			<div style={{paddingTop: '50px'}}>
-				{step == 0 && <SelectProductView products={products} selected={selected_products} onAddProduct={this.addProduct.bind(this)} />}
-			</div>
+			<Row gutter="60">
+				<Col span="8">
+					<SelectProductView products={products} selected={selected_products} onAddProduct={this.addProduct.bind(this)} />
+				</Col>
+				<Col span="8">
+					<SelectCustomer
+						customer={customer}
+						changeCustomer={this.changeCustomer.bind(this)}
+					/>
+				</Col>
+			</Row>
 		</div>
 	}
 
