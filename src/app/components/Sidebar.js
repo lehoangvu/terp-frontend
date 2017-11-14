@@ -15,6 +15,12 @@ export default class Sidebar extends React.Component {
                 <span>Sản phẩm</span>
               </Link>
             </Menu.Item>
+            <Menu.Item key="/order">
+              <Link to={`/orders`}>
+                <Icon type="appstore-o" />
+                <span>Đơn hàng</span>
+              </Link>
+            </Menu.Item>
             <Menu.Item key="/customer">
               <Link to={`/customer`}>
                 <Icon type="appstore-o" />

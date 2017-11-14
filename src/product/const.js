@@ -1,3 +1,3 @@
 export default {
-	MODULE_NAME: 'editor'
+	MODULE_NAME: 'product'
 }

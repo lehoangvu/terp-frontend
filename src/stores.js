@@ -5,11 +5,13 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
 import product from './product/reducer';
+import order from './order/reducer';
 import app from './app/reducer';
 
 const reducer = combineReducers({
     app,
     product,
+    order,
     routing: routerReducer
 });
 
