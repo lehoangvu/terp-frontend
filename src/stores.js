@@ -7,9 +7,11 @@ import { routerReducer } from 'react-router-redux';
 import product from './product/reducer';
 import order from './order/reducer';
 import app from './app/reducer';
+import customer from './customer/reducer';
 
 const reducer = combineReducers({
     app,
+    customer,
     product,
     order,
     routing: routerReducer
