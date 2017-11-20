@@ -17,7 +17,6 @@ const config = {
             'process.env': {
                 'APP_ENV': JSON.stringify('development'),
             },
-            // 'API_URL': JSON.stringify('http://terp.dev/api/')
             'API_URL': JSON.stringify('http://lp.tiembanhnho.com/terp/index.php/api/')
             
         }),

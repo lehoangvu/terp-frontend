@@ -4,17 +4,23 @@ import { actionTypeCreator } from './../libraries'
 const _ = actionTypeCreator(c.MODULE_NAME);
 
 const intinalState = {
-    customers: []
+    customers: {
+        data: [],
+        paging: null
+    },
 }
 
 export default (state = intinalState, action) => {
     switch(action.type){
-    	case _('list_success'): {
-    		return {
-    			...state,
-                products: action.data
-    		}
-    	}
+        case _('list_success'): {
+            return {
+                ...state,
+                customers: {
+                    data: action.data.results,
+                    paging: action.data.paging,
+                }
+            }
+        }
         default:
             return state;
     }
