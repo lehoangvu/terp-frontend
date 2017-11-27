@@ -12,6 +12,7 @@
   "author": "vu.le@tiki.vn",
   "devDependencies": {
     "antd": "^2.13.9",
+    "axios": "^0.17.1",
     "babel-cli": "^6.16.0",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.0.0",
@@ -64,7 +65,9 @@
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.9.3",
     "webpack-node-externals": "^1.6.0",
-    "webpack-uglify-js-plugin": "^1.1.9",
-    "axios": "^0.17.1"
+    "webpack-uglify-js-plugin": "^1.1.9"
+  },
+  "dependencies": {
+    "react-google-maps": "^9.4.1"
   }
 }

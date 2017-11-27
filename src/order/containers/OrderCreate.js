@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Row, Col, Panel } from 'antd'
 
+import { getCustomerByPhone } from './../action'
 import * as productActions from './../../product/action'
 import * as customerActions from './../../customer/action'
 
@@ -21,7 +22,7 @@ class OrderCreate extends React.Component {
 	render() {
 		const {products} = this.props
 		return <div className="order-create">
-			<OrderGenerateView products={this.props.products} />
+			<OrderGenerateView {...this.props} />
 		</div>
 	}
 }
@@ -29,12 +30,14 @@ class OrderCreate extends React.Component {
 const mapStateToProps = (state) => {
     return {
     	products: state.product.products,
+    	customerSearching: state.order.customer_searching,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 	    actions: bindActionCreators({
+	    	getCustomerByPhone,
 	    	getProductList: productActions.getList
 	    }, dispatch)
 	}

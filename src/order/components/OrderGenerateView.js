@@ -13,7 +13,9 @@ class OrderGenerateView extends React.Component {
 		this.state = {
 	        products: {},
 	        customer: {
-	            id: 0
+	        	created: false,
+	            id: null,
+	            address: ''
 	        },
 	        note: ''
 		}
@@ -28,21 +30,40 @@ class OrderGenerateView extends React.Component {
 		})
 	}
 
+	searchCustomerByPhone(value) {
+		const { getCustomerByPhone } = this.props.actions;
+		getCustomerByPhone(value);
+	}
+
 	changeCustomer(customer) {
+		console.log(customer);
+		const created = customer.id !== null
 		this.setState({
-			customer
+			customer: {
+				...this.state.customer,
+				created,
+				...customer
+			}
 		})
 	}
 
 	render() {
 		const { products } = this.props
 		const selectedProducts = this.state.products
-		console.log(selectedProducts);
+		const { customer } = this.state;
 		return <div>
-			{selectedProducts.length};
+			{JSON.stringify(selectedProducts.length)}
 			<Row gutter="60">
-				<Col span="8">
+				<Col span="8" style={{borderRight: '1px solid #ddd'}}>
 					<SelectProductView products={products} selected={selectedProducts} onAddProduct={this.addProduct.bind(this)} />
+				</Col>
+				<Col span="8">
+					<SelectCustomer
+						customer={customer}
+						customerSearching={this.props.customerSearching}
+						searchCustomerByPhone={this.searchCustomerByPhone.bind(this)}
+						changeCustomer={this.changeCustomer.bind(this)}
+					/>
 				</Col>
 			</Row>
 		</div>

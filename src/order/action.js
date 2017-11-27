@@ -19,3 +19,20 @@ export const getList = () => {
 		})
 	});
 }
+
+export const getCustomerByPhone = (q) => {
+	return dispatch => request({
+		url: '/customers?q=' + q
+	}).then((response) => {
+		dispatch({
+			type: _('search_customer_success'),
+			data: response.data,
+			q: q
+		})
+	}).catch(() => {
+
+		dispatch({
+			type: _('search_fail')			
+		})
+	});
+}

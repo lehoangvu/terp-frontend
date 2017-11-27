@@ -27,6 +27,7 @@ class SelectProductView extends React.Component {
 	render() {
 		const { products, onAddProduct, selected } = this.props
 		return <div>
+			<h2>Sản phẩm</h2>
 			<Table 
 			dataSource={products} 
 			pagination={false}
@@ -53,9 +54,10 @@ class SelectProductView extends React.Component {
 								if(typeof selected[item.id] !== 'undefined') {
 									value = selected[item.id]
 								}
-								return <p>
-									<label>{item.name} <span style={{'color': 'red'}}>{currency(item.price)}</span></label>
-									<InputNumber min={0} defaultValue={value} onChange={(value) => onAddProduct(item.id, value)} />
+								return <p style={{marginBottom: '10px'}}>
+									<label>
+										{item.name} <span style={{'color': 'red'}}>{currency(item.price)}</span>  x <InputNumber style={{width: '50px'}} min={0} defaultValue={value} onChange={(value) => onAddProduct(item.id, value)} />
+									</label>
 								</p>
 							})
 						}
