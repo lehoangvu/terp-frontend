@@ -7,7 +7,7 @@
     "dev": "run-p dev-js dev-sass",
     "dev-js": "webpack -d --color --watch --progress --config webpack.babel.js",
     "dev-sass": "gulp dev",
-    "serve": "webpack-dev-server webpack.local.js --port=8080 --history-api-fallback"
+    "serve": "webpack-dev-server webpack.local.js --port=9090 --history-api-fallback"
   },
   "author": "vu.le@tiki.vn",
   "devDependencies": {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { currency } from './../../helpers'
 
-import { Table, Tag } from 'antd'
+import { Table, Tag, InputNumber } from 'antd'
 import { Checkbox } from 'antd'
 
 
@@ -27,11 +27,6 @@ class SelectProductView extends React.Component {
 	render() {
 		const { products, onAddProduct, selected } = this.props
 		return <div>
-			<h2>Chọn sản phẩm</h2>
-			<h3>
-				<b style={{fontSize: '30px'}}>{selected.length}</b> SP được chọn, <b style={{color: '#f00', fontSize: '30px', float: 'right'}}>{this.getTotalPrice()}</b>
-			</h3>
-			<hr/>
 			<Table 
 			dataSource={products} 
 			pagination={false}
@@ -54,12 +49,13 @@ class SelectProductView extends React.Component {
 							<label>{record.name}</label>
 						{
 							record.config.map((item) => {
+								let value = 0
+								if(typeof selected[item.id] !== 'undefined') {
+									value = selected[item.id]
+								}
 								return <p>
-									<Checkbox 
-							            checked={selected.indexOf(item.id) != -1}
-							            onChange={() => {onAddProduct(item.id)}}>
-										<label>{item.name} <span style={{'color': 'red'}}>{currency(item.price)}</span></label>
-									</Checkbox>
+									<label>{item.name} <span style={{'color': 'red'}}>{currency(item.price)}</span></label>
+									<InputNumber min={0} defaultValue={value} onChange={(value) => onAddProduct(item.id, value)} />
 								</p>
 							})
 						}

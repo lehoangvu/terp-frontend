@@ -12,6 +12,7 @@ class OrderCreate extends React.Component {
 	constructor(props) {
 		super(props)
 	}
+
 	componentDidMount() {
 		const { getProductList } = this.props.actions
 		getProductList()
@@ -20,7 +21,7 @@ class OrderCreate extends React.Component {
 	render() {
 		const {products} = this.props
 		return <div className="order-create">
-			<OrderGenerateView order={this.props.order} products={this.props.products} />
+			<OrderGenerateView products={this.props.products} />
 		</div>
 	}
 }
