@@ -22,7 +22,7 @@ const DirectionMap = withGoogleMap((props) => {
 			defaultZoom={16}>
 			<DirectionsRenderer directions={props.directions} />
 		</GoogleMap>
-	  <div>
+	  </div>
 })
 
 const FormItem = Form.Item
@@ -30,11 +30,11 @@ const FormItem = Form.Item
 const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 6 },
+        sm: { span: 8 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 18 },
+        sm: { span: 16 },
       },
     };
 

@@ -21,7 +21,15 @@ class OrderSummary extends React.Component {
 
 	render() {
 		let total = 0
-		const { products, selected, customer, note, shipping_fee, additional_fee, changeOrderSummary } = this.props
+		const { products,
+			selected,
+			customer,
+			note,
+			shipping_fee,
+			additional_fee,
+			changeOrderSummary,
+			onAddProduct
+		} = this.props
 		let orderItems = []
 		products.map(product => {
 			product.config.map(config => {
@@ -73,6 +81,11 @@ class OrderSummary extends React.Component {
 						style: {textAlign: 'center'},
 						render: (text, record) => {
 							return <span style={{'color': 'red'}}>{currency(record.price * record.qty)}</span>
+						}
+					}, {
+						key: 'action',
+						render: (text, record) => {
+							return <Button size="small" type="danger" onClick={() => onAddProduct(record.id, 0)}>Xóa</Button>
 						}
 					}
 				]} />
