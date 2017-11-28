@@ -11,19 +11,6 @@ class SelectProductView extends React.Component {
 		super(props)
 	}
 
-	getTotalPrice() {
-		const { products, selected } = this.props
-		let total = 0
-		products.map(item => {
-			item.config.map(config => {
-				if(selected.indexOf(config.id) != -1) {
-					total += config.price
-				}
-			})
-		})
-		return currency(total)
-	}
-
 	render() {
 		const { products, onAddProduct, selected } = this.props
 		return <div>
@@ -34,13 +21,15 @@ class SelectProductView extends React.Component {
 			rowKey="id" 
 			showHeader={false} 
 			columns={ [
-				{ title: 'ID', dataIndex: 'id', key: 'id', width: '90px' },
 				{ 
 					title: '',
 					key: 'image',
 					width: '86px',
 					render: (text, record) => (
-						<img src={record.image} width="80"	/>
+						<p>
+							{record.id}
+							<img src={record.image} width="80"	/>
+						</p>
 					)
 				},
 				{ 

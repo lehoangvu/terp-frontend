@@ -1,7 +1,7 @@
 import React from 'react'
 import { currency } from './../../helpers'
 
-import { Row, Col } from 'antd'
+import { Row, Col, Affix } from 'antd'
 
 import SelectProductView from './SelectProductView'
 import SelectCustomer from './SelectCustomer'
@@ -17,13 +17,20 @@ class OrderGenerateView extends React.Component {
 	            id: null,
 	            address: ''
 	        },
-	        note: ''
+	        note: '',
+	        shipping_fee: 0,
+	        additional_fee: 0
 		}
 	}
 
 	addProduct(id, value) {
 		const { products } = this.state
-		products[id] = value
+		if(value > 0) {
+			products[id] = value
+		} else {
+			delete products[id]
+		}
+
 		this.setState({
 			...this.state,
 			products
@@ -47,10 +54,18 @@ class OrderGenerateView extends React.Component {
 		})
 	}
 
+	changeOrderSummary(name, value) {
+		let change = {}
+		change[name] = value
+		this.setState(
+			change
+		)
+	}
+
 	render() {
 		const { products } = this.props
 		const selectedProducts = this.state.products
-		const { customer } = this.state;
+		const { customer, note, shipping_fee, additional_fee } = this.state;
 		return <div>
 			{JSON.stringify(selectedProducts.length)}
 			<Row gutter="60">
@@ -58,12 +73,27 @@ class OrderGenerateView extends React.Component {
 					<SelectProductView products={products} selected={selectedProducts} onAddProduct={this.addProduct.bind(this)} />
 				</Col>
 				<Col span="8">
-					<SelectCustomer
-						customer={customer}
-						customerSearching={this.props.customerSearching}
-						searchCustomerByPhone={this.searchCustomerByPhone.bind(this)}
-						changeCustomer={this.changeCustomer.bind(this)}
-					/>
+					<Affix offsetTop={30}>
+						<SelectCustomer
+							customer={customer}
+							customerSearching={this.props.customerSearching}
+							searchCustomerByPhone={this.searchCustomerByPhone.bind(this)}
+							changeCustomer={this.changeCustomer.bind(this)}
+						/>
+					</Affix>
+				</Col>
+				<Col span="8" style={{borderRight: '1px solid #ddd'}}>
+					<Affix offsetTop={30}>
+						<OrderSummary
+							changeOrderSummary={this.changeOrderSummary.bind(this)}
+							products={products}
+							selected={selectedProducts}
+							customer={customer}
+							note={note}
+							shipping_fee={shipping_fee}
+							additional_fee={additional_fee}
+						/>
+					</Affix>
 				</Col>
 			</Row>
 		</div>
@@ -71,17 +101,3 @@ class OrderGenerateView extends React.Component {
 
 }
 export default OrderGenerateView
-
-
-				// <Col span="8">
-				// 	<SelectCustomer
-				// 		createData={this.props.createData}
-				// 		changeCustomer={this.changeCustomer.bind(this)}
-				// 	/>
-				// </Col>
-				// <Col span="8">
-				// 	<OrderSummary
-				// 		createData={this.props.createData}
-				// 		selected_products={selected_products}
-				// 	/>
-				// </Col>

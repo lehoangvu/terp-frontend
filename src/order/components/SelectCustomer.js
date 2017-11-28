@@ -7,15 +7,36 @@ import { Form, Input, Button } from 'antd'
 import { withGoogleMap, GoogleMap, Marker, DirectionsRenderer } from "react-google-maps"
 
 
-const DirectionMap = withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={16}
-  >
-    <DirectionsRenderer directions={props.directions} />
-  </GoogleMap>
-)
+const DirectionMap = withGoogleMap((props) => {
+	let distance = 0
+	if(props.directions) {
+		props.directions.routes.map(route => {
+			route.legs.map(leg => {
+				distance += leg.distance.value
+			})
+		})
+	}
+  	return <div>
+	  	<span style={{position: 'absolute', zIndex: 9999, top: '10px', right: '10px'}}>{distance}</span>
+		<GoogleMap
+			defaultZoom={16}>
+			<DirectionsRenderer directions={props.directions} />
+		</GoogleMap>
+	  <div>
+})
 
 const FormItem = Form.Item
+
+const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 6 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 18 },
+      },
+    };
 
 class SelectCustomer extends React.Component {
 	constructor(props) {
@@ -54,6 +75,7 @@ class SelectCustomer extends React.Component {
 			travelMode: google.maps.TravelMode.DRIVING,
 		}, (result, status) => {
 			if (status === google.maps.DirectionsStatus.OK) {
+				console.log(result);
 			  this.setState({
 			  	directions: result
 			  })
@@ -106,25 +128,24 @@ class SelectCustomer extends React.Component {
 	}
 	render() {
 		const { customer } = this.props
-		console.log(customer)
 		return <div>
-			<h2>Thông tin khách hàng</h2>
-			<Form onSubmit={() => {return false}}>
-				<FormItem label="Số điện thoại">
+			<h2 style={{marginBottom: '20px'}}>Thông tin khách hàng</h2>
+			<Form onSubmit={() => {return false}} >
+				<FormItem label="Số điện thoại" {...formItemLayout} >
 					<Input name="phone" value={customer.phone} placeholder="Nhập số điện thoại" onChange={this.changeInput} autoComplete="off" onBlur={ () => {setTimeout(() => {this.setState({phoneFocus: false})}, 300)} } onFocus={ () => {this.setState({phoneFocus: true})} } />
 					{this.getCustomerSearch()}
 				</FormItem>
 
-				<FormItem label="Tên khách hàng">
+				<FormItem label="Tên khách hàng" {...formItemLayout} >
 					<Input disabled={customer.created} name="fullname" placeholder="Nhập tên khách hàng" value={customer.fullname} onChange={this.changeInput} />
 				</FormItem>
 
-				<FormItem label="Địa chỉ">
+				<FormItem label="Địa chỉ" {...formItemLayout} >
 					<Input disabled={customer.created} name="address" placeholder="Nhập địa chỉ" value={customer.address} onChange={this.changeInput} />
 				</FormItem>
 			</Form>
 
-			<DirectionMap directions={this.state.directions} containerElement={<div style={{ height: `400px` }} />} mapElement={<div style={{ height: `100%` }} /> }/>
+			<DirectionMap directions={this.state.directions} containerElement={<div style={{ height: `0px`, paddingTop: '100%', position: 'relative'}} />} mapElement={<div style={{ position: 'absolute', height: `100%`, width: '100%', top: 0, left: 0 }} /> }/>
 		</div>
 	}
 
